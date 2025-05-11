@@ -7,6 +7,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/SectionHeader";
 import grainImage from "@/assets/images/grain.jpg";
 import { Card } from "@/components/Card";
+import { Fragment } from "react";
 
 const testimonials = [
   {
@@ -50,32 +51,46 @@ export const TestimonialsSection = () => {
           title="What Clients Say About Me"
           description="Don't just take my word for it. See what my clients have to say about my work."
         />
-        <div className="mt-16 lg:mt-24 flex overflow-x-clip [mask-image:linear-gradient(to_right,transparent,black 10%,black 90%,transparent 100%)]">
-          <div className="flex gap-8 flex-none">
-            {testimonials.map((testimonial) => (
-              <Card
-                key={testimonial.name}
-                className="max-w-xs md:max-w-md p-6 md:p-8"
-              >
-                <div className="flex gap-4 items-center">
-                  <div className="size-14 bg-gray-700 inline-flex items-center justify-center rounded-full flex-shrink-0">
-                    <Image
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="max-h-full"
-                    />
-                  </div>
-                  <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-white/40">
-                      {testimonial.position}{" "}
+        <div
+          className="mt-12 lg:mt-20 flex overflow-x-clip py-4 -my-4"
+          style={{
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent 100%)",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskSize: "100% 100%",
+            maskSize: "100% 100%",
+          }}
+        >
+          <div className="flex gap-8 pr-8 flex-none animate-move-left [animation-duuration:90s] hover:[animation-play-state:paused]">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <Fragment key={i}>
+                {testimonials.map((testimonial) => (
+                  <Card
+                    key={testimonial.name}
+                    className="max-w-xs md:max-w-md p-6 md:p-8 hover:-rotate-3 transition duration-300"
+                  >
+                    <div className="flex gap-4 items-center">
+                      <div className="size-14 bg-gray-700 inline-flex items-center justify-center rounded-full flex-shrink-0">
+                        <Image
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          className="max-h-full"
+                        />
+                      </div>
+                      <div>
+                        <div className="font-semibold">{testimonial.name}</div>
+                        <div className="text-sm text-white/40">
+                          {testimonial.position}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <p className="mt-4 md:mt-6 text-sm md:text-base">
-                  {testimonial.text}
-                </p>
-              </Card>
+                    <p className="mt-4 md:mt-6 text-sm md:text-base">
+                      {testimonial.text}
+                    </p>
+                  </Card>
+                ))}
+              </Fragment>
             ))}
           </div>
         </div>
