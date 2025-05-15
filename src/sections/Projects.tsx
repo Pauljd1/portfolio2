@@ -1,8 +1,9 @@
 "use client";
 
 import pospadi from "@/assets/images/pospadi.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
+import ztmQuest from "@/assets/images/ztmquest.png";
 import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+import aiLandingPage from "@/assets/images/aiLandingPage.png";
 import Image from "next/image";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
@@ -16,7 +17,7 @@ interface Project {
   year: string;
   results: { title: string }[];
   link: string;
-  image: StaticImport;
+  image: StaticImport | string;
 }
 
 const projects: Project[] = [
@@ -42,34 +43,44 @@ const projects: Project[] = [
     image: pospadi,
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
+    company: "ZTM Quest",
+    year: "2025",
+    title: "Open Source Project",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      {
+        title:
+          "Collaborated with a team to design and implement core game mechanics, features, and assets for a 2D browser-based game.",
+      },
+      {
+        title:
+          "Contributed to front-end development and gameplay functionality using JavaScript, HTML5, and CSS3",
+      },
     ],
-    link: "https://youtu.be/7hi5zwO75yc",
-    image: lightSaasLandingPage,
+    link: "https://zero-to-mastery.github.io/ZTM-Quest/",
+    image: ztmQuest,
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
-    title: "AI Startup Landing Page",
+    company: "Light Sass Landing Page",
+    year: "2025",
+    title: "Landing Page",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      {
+        title:
+          "Developed a responsive landing page for a fictional AI startup, highlighting its features and services.",
+      },
+      {
+        title:
+          "Built using React, TypeScript, Tailwind CSS, and Framer Motion for modern styling and smooth animations.",
+      },
     ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
-    image: aiStartupLandingPage,
+    link: "https://zero-to-mastery.github.io/ZTM-Quest/",
+    image: aiLandingPage,
   },
 ];
 
 export const ProjectsSection = () => {
   return (
-    <section className="pb-16 lg:py-24">
+    <section id="projects" className="pb-16 lg:py-24">
       <div>
         <div className="container">
           <SectionHeader
