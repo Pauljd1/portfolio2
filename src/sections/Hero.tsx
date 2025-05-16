@@ -1,5 +1,9 @@
 import memojiImage from "@/assets/images/memoji-computer.png";
-import Image from "next/image";
+
+const memojiImageTyped: { src: string } =
+  typeof memojiImage === "object" && "src" in memojiImage
+    ? memojiImage
+    : { src: memojiImage.toString() };
 import ArrowDown from "@/assets/icons/arrow-down.svg";
 import grainImage from "@/assets/images/grain.jpg";
 import StarIcon from "@/assets/icons/star.svg";
@@ -100,7 +104,16 @@ export const HeroSection = () => {
       </div>
       <div className="container">
         <div className="flex flex-col items-center">
-          <Image src={memojiImage} className="size-[100px]" alt="Memoji" />
+          <img
+            src={
+              typeof memojiImage === "object" && "src" in memojiImage
+                ? (memojiImage as { src: string }).src.toString()
+                : memojiImage.toString()
+            }
+            className="size-[100px]"
+            alt="Memoji"
+            loading="lazy"
+          />
           <div className="bg-gray-950 border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-l">
             <div className="bg-green-500 size-2.5 rounded-full relative">
               <div className="bg-green-500 absolute inset-0 rounded-full animate-ping-large"></div>
@@ -115,8 +128,8 @@ export const HeroSection = () => {
             Building Exceptional User Experiences
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
-            I specialise in transforming designs into functional,
-            high-performing web applications. Let's discuss your next project.
+            {`I specialise in transforming designs into functional,
+            high-performing web applications. Let's discuss your next project.`}
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4 relative z-10">
@@ -133,7 +146,7 @@ export const HeroSection = () => {
             className="inline-flex items-center gap-2 border border-white bg-white text-gray-900 h-12 px-6 rounded-xl"
           >
             <span>👋</span>
-            <span className="font-semibold">Let's Connect</span>
+            <span className="font-semibold">{`Let's Connect`}</span>
           </a>
         </div>
       </div>

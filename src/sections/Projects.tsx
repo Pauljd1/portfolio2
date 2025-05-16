@@ -2,9 +2,7 @@
 
 import pospadi from "@/assets/images/pospadi.png";
 import ztmQuest from "@/assets/images/ztmquest.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
 import aiLandingPage from "@/assets/images/aiLandingPage.png";
-import Image from "next/image";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -128,10 +126,17 @@ export const ProjectsSection = () => {
                     </a>
                   </div>
                   <div className="relative">
-                    <Image
-                      src={project.image}
+                    <img
+                      src={
+                        typeof project.image === "string"
+                          ? project.image
+                          : project.image && "src" in project.image
+                          ? project.image.src.toString()
+                          : ""
+                      }
                       alt={project.title}
                       className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none"
+                      loading="lazy"
                     />
                   </div>
                 </div>

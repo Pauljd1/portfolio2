@@ -3,17 +3,24 @@ import memojiAvatar2 from "@/assets/images/memoji-avatar-2.png";
 import memojiAvatar3 from "@/assets/images/memoji-avatar-3.png";
 import memojiAvatar4 from "@/assets/images/memoji-avatar-4.png";
 import memojiAvatar5 from "@/assets/images/memoji-avatar-5.png";
-import Image from "next/image";
+
 import { SectionHeader } from "@/components/SectionHeader";
 import grainImage from "@/assets/images/grain.jpg";
 import { Card } from "@/components/Card";
 import { Fragment } from "react";
 
-const testimonials = [
+type Testimonial = {
+  name: string;
+  position: string;
+  text: string;
+  avatar: { src: string } | string;
+};
+
+const testimonials: Testimonial[] = [
   {
     name: "Fabian Petersen",
     position: "Software Developer @ Internpulse",
-    text: "I had the opportunity to work with Paul on the POS Padi project and it was a genuinely great experience. He’s one of the most dedicated and trustworthy developers I’ve had the chance to work with. No matter how big or small the task, he always showed up with a positive attitude and gave it his all. We could count on him to deliver what was discussed in the meetings and do it the right way or fix issues ASAP. I will definitely recommend Paul for your team, I will also gladly work with him again.",
+    text: "I had the opportunity to work with Paul on the POS Padi project and it was a genuinely great experience. He's one of the most dedicated and trustworthy developers I've had the chance to work with. No matter how big or small the task, he always showed up with a positive attitude and gave it his all. We could count on him to deliver what was discussed in the meetings and do it the right way or fix issues ASAP. I will definitely recommend Paul for your team, I will also gladly work with him again.",
     avatar: memojiAvatar1,
   },
   {
@@ -74,10 +81,16 @@ export const TestimonialsSection = () => {
                   >
                     <div className="flex gap-4 items-center">
                       <div className="size-14 bg-gray-700 inline-flex items-center justify-center rounded-full flex-shrink-0">
-                        <Image
-                          src={testimonial.avatar}
+                        <img
+                          src={
+                            typeof testimonial.avatar === "object" &&
+                            "src" in testimonial.avatar
+                              ? testimonial.avatar.src.toString()
+                              : testimonial.avatar.toString()
+                          }
                           alt={testimonial.name}
                           className="max-h-full"
+                          loading="lazy"
                         />
                       </div>
                       <div>

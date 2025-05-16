@@ -3,8 +3,11 @@ import CircumIcon from "@klarr-agency/circum-icons-react";
 const footerLinks = [
   {
     title: "LinkedIn",
-    href: "https://www.linkedin.com/in/your-profile",
+    href: "https://www.linkedin.com/in/paul-davidson-4641b4307",
+    icon: "linkedin",
+    iconColor: "#0a66c2",
   },
+  // You can add more social links here as needed
 ];
 
 export const Footer = () => {
@@ -24,9 +27,15 @@ export const Footer = () => {
                 href={link.href}
                 key={link.title}
                 className="inline-flex items-center gap-1.5 relative z-30"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="font-semibold">{link.title}</span>
-                <CircumIcon name="linkedin" color="#0a66c2" size="30px" />
+                <CircumIcon
+                  name={link.icon}
+                  color={link.iconColor}
+                  size="30px"
+                />
               </a>
             ))}
           </nav>
