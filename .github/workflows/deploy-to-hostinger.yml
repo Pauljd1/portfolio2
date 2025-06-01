@@ -29,8 +29,8 @@ jobs:
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: "ftp.pauldavidson.dev"
-          username: "u245321352"
+          server: ${{ secrets.HOSTINGER_HOST || 'ftp.pauldavidson.dev' }}
+          username: ${{ secrets.HOSTINGER_USER || 'u245321352' }}
           password: ${{ secrets.HOSTINGER_PASSWORD }}
           local-dir: ./out/
           server-dir: "/public_html/"
