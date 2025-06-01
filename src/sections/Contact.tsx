@@ -6,9 +6,70 @@ import grainImage from "@/assets/images/grain.jpg";
 
 export const ContactSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    query: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<null | "success" | "error">(
+    null
+  );
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+    // Reset form and status when reopening modal
+    if (!isModalOpen) {
+      setFormData({ name: "", email: "", query: "" });
+      setSubmitStatus(null);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.query) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || "",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.query,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", query: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -54,40 +115,86 @@ export const ContactSection = () => {
               &times;
             </button>
             <h3 className="font-serif text-xl mb-4">Contact Me</h3>
-            <form>
-              <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium mb-1"
+
+            {submitStatus === "success" ? (
+              <div className="text-center py-6">
+                <div className="text-emerald-300 text-xl mb-3">✓</div>
+                <h4 className="font-medium text-lg">Thank you!</h4>
+                <p className="text-gray-400 mt-2">
+                  Your message has been sent successfully.
+                </p>
+                <button
+                  onClick={toggleModal}
+                  className="mt-6 bg-emerald-300 text-gray-900 px-4 py-2 rounded-lg font-semibold"
                 >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                />
+                  Close
+                </button>
               </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="query"
-                  className="block text-sm font-medium mb-1"
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="query"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="query"
+                    rows={4}
+                    value={formData.query}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                    required
+                  ></textarea>
+                </div>
+                {submitStatus === "error" && (
+                  <p className="text-red-400 text-sm mb-4">
+                    There was an error sending your message. Please try again
+                    later.
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-emerald-300 text-gray-900 px-4 py-2 rounded-lg font-semibold w-full disabled:opacity-70"
                 >
-                  Query
-                </label>
-                <textarea
-                  id="query"
-                  rows={4}
-                  className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="bg-emerald-300 text-gray-900 px-4 py-2 rounded-lg font-semibold w-full"
-              >
-                Submit
-              </button>
-            </form>
+                  {isSubmitting ? "Sending..." : "Submit"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       )}

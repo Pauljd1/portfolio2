@@ -1,9 +1,4 @@
 import memojiImage from "@/assets/images/memoji-computer.png";
-
-const memojiImageTyped: { src: string } =
-  typeof memojiImage === "object" && "src" in memojiImage
-    ? memojiImage
-    : { src: memojiImage.toString() };
 import ArrowDown from "@/assets/icons/arrow-down.svg";
 import grainImage from "@/assets/images/grain.jpg";
 import StarIcon from "@/assets/icons/star.svg";
@@ -11,6 +6,11 @@ import SparkleIcon from "@/assets/icons/sparkle.svg";
 import { HeroOrbit } from "@/components/HeroOrbit";
 
 export const HeroSection = () => {
+  // Process memojiImage once to get the src
+  const memojiSrc = typeof memojiImage === "object" && "src" in memojiImage
+    ? (memojiImage as { src: string }).src.toString()
+    : memojiImage.toString();
+
   return (
     <div className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
       <div className="absolute inset-0  [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)]">
@@ -31,7 +31,7 @@ export const HeroSection = () => {
           spinDuration="3s"
         >
           <SparkleIcon className="size-8 text-emerald-300/20" />
-        </HeroOrbit>{" "}
+        </HeroOrbit>
         <HeroOrbit
           size={440}
           rotation={79}
@@ -64,7 +64,7 @@ export const HeroSection = () => {
           spinDuration="6s"
         >
           <StarIcon className="size-12 text-emerald-300" />
-        </HeroOrbit>{" "}
+        </HeroOrbit>
         <HeroOrbit
           size={590}
           rotation={98}
@@ -105,11 +105,7 @@ export const HeroSection = () => {
       <div className="container">
         <div className="flex flex-col items-center">
           <img
-            src={
-              typeof memojiImage === "object" && "src" in memojiImage
-                ? (memojiImage as { src: string }).src.toString()
-                : memojiImage.toString()
-            }
+            src={memojiSrc}
             className="size-[100px]"
             alt="Memoji"
             loading="lazy"
@@ -124,7 +120,7 @@ export const HeroSection = () => {
           </div>
         </div>
         <div className="max-w-lg mx-auto">
-          <h1 className=" font-serif text-3xl md:text-5xl text-center mt-8 tracking-wide">
+          <h1 className="font-serif text-3xl md:text-5xl text-center mt-8 tracking-wide">
             Building Exceptional User Experiences
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
@@ -134,7 +130,7 @@ export const HeroSection = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center mt-8 gap-4 relative z-10">
           <a
-            href="/paul-davidson (2).pdf"
+            href="/paul-davidson.pdf"
             download
             className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl"
           >

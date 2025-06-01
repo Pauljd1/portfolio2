@@ -3,6 +3,7 @@
 import pospadi from "@/assets/images/pospadi.png";
 import ztmQuest from "@/assets/images/ztmquest.png";
 import aiLandingPage from "@/assets/images/aiLandingPage.png";
+import real from "@/assets/images/real.png";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -64,15 +65,32 @@ const projects: Project[] = [
     results: [
       {
         title:
-          "Developed a responsive landing page for a fictional AI startup, highlighting its features and services.",
+          "Developed a responsive landing page for a  fictional AI startup, highlighting its features and services.",
       },
       {
         title:
           "Built using React, TypeScript, Tailwind CSS, and Framer Motion for modern styling and smooth animations.",
       },
     ],
-    link: "https://zero-to-mastery.github.io/ZTM-Quest/",
+    link: "https://sasslight-3x4e.vercel.app/",
     image: aiLandingPage,
+  },
+  {
+    company: "RealEst",
+    year: "2025",
+    title: "Real Estate Landing Page",
+    results: [
+      {
+        title:
+          "Designed and developed a sleek, responsive landing page for a modern real estate brand, focused on showcasing featured listings, key services, and a strong visual identity.",
+      },
+      {
+        title:
+          "Implemented using React, TypeScript, and ShadCN UI components to ensure clean design, accessibility, and a seamless user experience.",
+      },
+    ],
+    link: "https://storied-cajeta-12e9ce.netlify.app/",
+    image: real,
   },
 ];
 
@@ -118,7 +136,11 @@ export const ProjectsSection = () => {
                         </li>
                       ))}
                     </ul>
-                    <a href={project.link}>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <button className="bg-white text-gray-950 h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
                         Visit Live Site
                         <ArrowUpRightIcon className="size-4" />
