@@ -26,13 +26,12 @@ jobs:
         env:
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
 
-      - name: Deploy to Hostinger via SSH
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-avz --delete"
-          SOURCE: "out/"
-          REMOTE_HOST: "145.223.89.113"
-          REMOTE_USER: "u245321352"
-          TARGET: ${{ secrets.HOSTINGER_PATH }}
-          REMOTE_PORT: "65002"
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: "ftp.pauldavidson.dev"
+          username: "u245321352"
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          local-dir: ./out/
+          server-dir: "/public_html/"
+          dangerous-clean-slate: true
