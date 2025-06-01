@@ -26,12 +26,13 @@ jobs:
         env:
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
 
-      - name: Deploy to Hostinger
+      - name: Deploy to Hostinger via SSH
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-avz --delete"
           SOURCE: "out/"
-          REMOTE_HOST: ${{ secrets.HOSTINGER_HOST }}
-          REMOTE_USER: ${{ secrets.HOSTINGER_USER }}
+          REMOTE_HOST: "145.223.89.113"
+          REMOTE_USER: "u245321352"
           TARGET: ${{ secrets.HOSTINGER_PATH }}
+          REMOTE_PORT: "65002"
